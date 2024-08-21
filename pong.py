@@ -9,7 +9,11 @@ def ball_animation():
 
     if ball.top <= 0 or ball.bottom >= screen_height:
         ball_speed_y *= -1
-    if ball.left <= 0 or ball.right >= screen_width:
+    if ball.left <= 0:
+        update_scores(player_scored=True)
+        ball_restart()
+    if ball.right >= screen_width:
+        update_scores(player_scored=False)
         ball_restart()
 
     if ball.colliderect(player) or ball.colliderect(opponent):
@@ -40,6 +44,14 @@ def ball_restart():
     ball.center = (screen_width/2, screen_height/2)
     ball_speed_y *= random.choice((1,-1))
     ball_speed_x *= random.choice((1,-1))
+
+def update_scores(player_scored):
+    global player_score, opponent_score
+
+    if player_scored:
+        player_score += 1
+    else:
+        opponent_score += 1
 
 
 
@@ -73,6 +85,9 @@ ball_speed_y = 7 * random.choice((-1,1))
 player_speed = 0
 opponent_speed = 7
 
+player_score = 0
+opponent_score = 0
+
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -94,6 +109,7 @@ while True:
     ball_animation()
     player_animation()
     opponent_ai()
+    print(player_score, opponent_score)
     
     
 
