@@ -1,8 +1,8 @@
 # NotPONG 🎮
 
-Welcome to **NotPONG**, a modern twist on the classic Pong game, made entirely with Python and Pygame! This isn't your average pong game – it's got flair, style, and a hint of nostalgia!
+Welcome to **NotPONG**, my adaptation of the classic Pong game from way back in 1972, made entirely with Python and Pygame!
 
-![NotPONG Screenshot](link-to-your-screenshot.png)
+![NotPONG Screenshot](NotPongGame.png)
 
 ## 🚀 Getting Started
 
