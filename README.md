@@ -54,6 +54,27 @@ Exit the Game: Click on the Exit text at the top-right corner.
 **Score Tracking**: Keep track of your wins and challenge yourself to improve! (WIP)
 ## 📸 Screenshots
 
+### Main Menu
+![NotPONG MainMenu Screenshot](MainMenu.jpg)
+
+The main menu where you can start the game, access options, or exit. The button labeled "Start" initiates the game, while "Options" lets you set the difficulty and "Exit" closes the game.
+
+
+### Set Difficulty
+![NotPONG SetDifficulty Screenshot](SetDifficulty.jpg)
+
+Choose your preferred difficulty level from easy, medium, or hard. This screen allows you to adjust the opponent's speed to match your skill level, providing a tailored challenge.
+
+### Select Game Mode
+![NotPONG SelectGameMode Screenshot](SelectGameMode.jpg)
+
+Select your game mode after starting the game. Choose between playing against the computer or engaging in a two-player mode where you and a friend can battle it out.
+
+### Running Match
+![NotPONG RunningMatch Screenshot](RunningMatch.jpg)
+
+In-game screenshot showing an active match. The player and opponent paddles are visible along with the ball in motion. The score display and the gameplay are showcased here.
+
 ## 🛠️ Built With
 **Python**: The backbone of NotPONG.
 
@@ -77,4 +98,4 @@ Classic Pong Game for the inspiration.
 
 Pygame community.
 
-Made with ❤️ by Harsh Hareendran Kallinkeel
+**Made with ❤️ by Harsh Hareendran Kallinkeel**
