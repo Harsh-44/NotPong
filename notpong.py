@@ -12,7 +12,7 @@ screen_width = 960
 screen_height = 560
 
 screen = pygame.display.set_mode((screen_width, screen_height))
-pygame.display.set_caption('Pong')
+pygame.display.set_caption('NotPONG')
 
 ##################################################
 # RECTANGLES/SPRITES FOR THE GAME
@@ -147,7 +147,7 @@ def main_game(single_player=True):
                         opponent_speed_2 -= 7
                     if event.key == pygame.K_s:
                         opponent_speed_2 += 7
-                if event.key == pygame.K_p:  # Return to menu on 'P' key press
+                if event.key == pygame.K_p: 
                     menu_screen()
 
             if event.type == pygame.KEYUP:
@@ -162,7 +162,7 @@ def main_game(single_player=True):
                         opponent_speed_2 -= 7
 
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if exit_text_rect.collidepoint(event.pos):  # Return to menu on "Exit" text click
+                if menu_text_rect.collidepoint(event.pos): 
                     menu_screen()
 
         ball_animation()
