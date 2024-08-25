@@ -93,7 +93,7 @@ Submit a pull request.
 ## 📜 License
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## 🦄 Acknowledgments
+## Acknowledgments
 Classic Pong Game for the inspiration.
 
 Pygame community.
