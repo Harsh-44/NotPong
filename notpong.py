@@ -172,20 +172,18 @@ def main_game(single_player=True):
         else:
             twoplayer_opponent_animation()
 
-        # Drawing
+        # drawing
         screen.fill(bg_color)
         pygame.draw.rect(screen, light_grey, player)
         pygame.draw.rect(screen, light_grey, opponent)
         pygame.draw.ellipse(screen, light_grey, ball)
         pygame.draw.aaline(screen, light_grey, (screen_width / 2, 0), (screen_width / 2, screen_height))
 
-        # Draw "Exit" text
         menu_text = menu_font.render('Menu', True, light_grey)
         menu_text_rect = menu_text.get_rect()
         menu_text_rect.topright = (screen_width - 10, 10)
         screen.blit(menu_text, menu_text_rect)
 
-        # Display scores
         font = pygame.font.Font(None, 74)
         text = font.render(str(player_score), True, light_grey)
         screen.blit(text, (screen_width / 2 + 20, 10))
@@ -209,7 +207,6 @@ def menu_screen():
     while True:
         screen.fill(bg_color)
 
-        # Draw title
         title_text = title_font.render("NotPONG", True, light_grey)
         screen.blit(title_text, (screen_width / 2 - title_text.get_width() / 2, screen_height / 2 - 200))
 
@@ -247,7 +244,6 @@ def gamemode_screen():
     while True:
         screen.fill(bg_color)
 
-        # Draw title
         title_text = title_font.render("Select Gamemode", True, light_grey)
         screen.blit(title_text, (screen_width / 2 - title_text.get_width() / 2, screen_height / 2 - 200))
 
@@ -283,7 +279,6 @@ def options_screen():
     while True:
         screen.fill(bg_color)
 
-        # Draw title
         title_text = title_font.render("Set difficulty", True, light_grey)
         screen.blit(title_text, (screen_width / 2 - title_text.get_width() / 2, screen_height / 2 - 200))
 
