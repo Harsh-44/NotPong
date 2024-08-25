@@ -30,6 +30,7 @@ ball_speed_y = 7 * random.choice((-1,1))
 
 player_speed = 0
 opponent_speed = 7
+opponent_speed_2 = 0 
 
 player_score = 0
 opponent_score = 0
@@ -48,6 +49,7 @@ computer_img = pygame.image.load('assets/computer.png').convert_alpha()
 twoplayer_img = pygame.image.load('assets/twoplayer.png').convert_alpha()
 
 title_font = pygame.font.Font('assets/fonts/PressStart2P-Regular.ttf', 50)
+menu_font = pygame.font.Font('assets/fonts/PressStart2P-Regular.ttf', 16)
 
 class Button:
     def __init__(self, x, y, image):
@@ -99,6 +101,13 @@ def opponent_ai():
     if opponent.bottom >= screen_height:
         opponent.bottom = screen_height  
 
+def twoplayer_opponent_animation():
+    opponent.y += opponent_speed_2
+    if opponent.top <= 0:
+        opponent.top = 0
+    if opponent.bottom >= screen_height:
+        opponent.bottom = screen_height
+
 
 def ball_restart():
     global ball_speed_x, ball_speed_y
@@ -119,39 +128,64 @@ def update_scores(player_scored):
 # GAME LOOP
 #############################
 
-def main_game():
-    global player_speed
+def main_game(single_player=True):
+    global player_speed, opponent_speed_2
 
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-            
+
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_DOWN:
                     player_speed += 7
                 if event.key == pygame.K_UP:
                     player_speed -= 7
+                if not single_player:
+                    if event.key == pygame.K_w:
+                        opponent_speed_2 -= 7
+                    if event.key == pygame.K_s:
+                        opponent_speed_2 += 7
+                if event.key == pygame.K_p:  # Return to menu on 'P' key press
+                    menu_screen()
+
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_DOWN:
                     player_speed -= 7
                 if event.key == pygame.K_UP:
                     player_speed += 7
+                if not single_player:
+                    if event.key == pygame.K_w:
+                        opponent_speed_2 += 7
+                    if event.key == pygame.K_s:
+                        opponent_speed_2 -= 7
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if exit_text_rect.collidepoint(event.pos):  # Return to menu on "Exit" text click
+                    menu_screen()
 
         ball_animation()
         player_animation()
-        opponent_ai()
+        if single_player:
+            opponent_ai()
+        else:
+            twoplayer_opponent_animation()
 
-        # drawing
+        # Drawing
         screen.fill(bg_color)
-
         pygame.draw.rect(screen, light_grey, player)
         pygame.draw.rect(screen, light_grey, opponent)
         pygame.draw.ellipse(screen, light_grey, ball)
-        pygame.draw.aaline(screen, light_grey, (screen_width/2, 0), (screen_width/2, screen_height))
+        pygame.draw.aaline(screen, light_grey, (screen_width / 2, 0), (screen_width / 2, screen_height))
 
-        # display scores
+        # Draw "Exit" text
+        menu_text = menu_font.render('Menu', True, light_grey)
+        menu_text_rect = menu_text.get_rect()
+        menu_text_rect.topright = (screen_width - 10, 10)
+        screen.blit(menu_text, menu_text_rect)
+
+        # Display scores
         font = pygame.font.Font(None, 74)
         text = font.render(str(player_score), True, light_grey)
         screen.blit(text, (screen_width / 2 + 20, 10))
@@ -166,7 +200,6 @@ def main_game():
 ############################
 
 def menu_screen():
-
     button_spacing = 20
 
     start_button = Button(screen_width / 2 - start_img.get_width() / 2, screen_height / 2 - start_img.get_height() / 1, start_img)
@@ -179,7 +212,6 @@ def menu_screen():
         # Draw title
         title_text = title_font.render("NotPONG", True, light_grey)
         screen.blit(title_text, (screen_width / 2 - title_text.get_width() / 2, screen_height / 2 - 200))
-
 
         start_button.draw()
         options_button.draw()
@@ -194,12 +226,46 @@ def menu_screen():
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if start_button.is_clicked(event.pos):
-                    main_game()
+                    gamemode_screen()
                 if options_button.is_clicked(event.pos):
-                   (options_screen())  
+                    options_screen()
                 if exit_button.is_clicked(event.pos):
                     pygame.quit()
                     sys.exit()
+
+
+############################
+# GAMEMODE LOOP
+############################
+
+def gamemode_screen():
+    button_spacing = 20
+
+    single_button = Button(screen_width / 2 - computer_img.get_width() / 2, screen_height / 2 - computer_img.get_height() / 1, computer_img)
+    two_button = Button(screen_width / 2 - twoplayer_img.get_width() / 2, single_button.rect.bottom + button_spacing, twoplayer_img)
+
+    while True:
+        screen.fill(bg_color)
+
+        # Draw title
+        title_text = title_font.render("Select Gamemode", True, light_grey)
+        screen.blit(title_text, (screen_width / 2 - title_text.get_width() / 2, screen_height / 2 - 200))
+
+        single_button.draw()
+        two_button.draw()
+
+        pygame.display.flip()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if single_button.is_clicked(event.pos):
+                    main_game(single_player=True)
+                if two_button.is_clicked(event.pos):
+                    main_game(single_player=False)
 
 ############################
 # OPTIONS LOOP
