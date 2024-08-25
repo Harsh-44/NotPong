@@ -41,6 +41,11 @@ opponent_score = 0
 start_img = pygame.image.load('assets/start.png').convert_alpha()
 options_img = pygame.image.load('assets/options.png').convert_alpha()
 exit_img = pygame.image.load('assets/exit.png').convert_alpha()
+easy_img = pygame.image.load('assets/easy.png').convert_alpha()
+medium_img = pygame.image.load('assets/medium.png').convert_alpha()
+hard_img = pygame.image.load('assets/hard.png').convert_alpha()
+computer_img = pygame.image.load('assets/computer.png').convert_alpha()
+twoplayer_img = pygame.image.load('assets/twoplayer.png').convert_alpha()
 
 title_font = pygame.font.Font('assets/fonts/PressStart2P-Regular.ttf', 50)
 
@@ -191,9 +196,52 @@ def menu_screen():
                 if start_button.is_clicked(event.pos):
                     main_game()
                 if options_button.is_clicked(event.pos):
-                    print("Options button clicked!")  # Placeholder for options
+                   (options_screen())  
                 if exit_button.is_clicked(event.pos):
                     pygame.quit()
                     sys.exit()
+
+############################
+# OPTIONS LOOP
+############################
+
+def options_screen():
+    global opponent_speed 
+
+    button_spacing = 20
+
+    easy_button = Button(screen_width / 2 - easy_img.get_width() / 2, screen_height / 2 - start_img.get_height() / 1, easy_img)
+    medium_button = Button(screen_width / 2 - medium_img.get_width() / 2, easy_button.rect.bottom + button_spacing, medium_img)
+    hard_button = Button(screen_width / 2 - hard_img.get_width() / 2, medium_button.rect.bottom + button_spacing, hard_img)
+
+    while True:
+        screen.fill(bg_color)
+
+        # Draw title
+        title_text = title_font.render("Set difficulty", True, light_grey)
+        screen.blit(title_text, (screen_width / 2 - title_text.get_width() / 2, screen_height / 2 - 200))
+
+
+        easy_button.draw()
+        medium_button.draw()
+        hard_button.draw()
+
+        pygame.display.flip()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if easy_button.is_clicked(event.pos):
+                    opponent_speed = 3
+                    menu_screen()
+                if medium_button.is_clicked(event.pos):
+                    opponent_speed = 8
+                    menu_screen()
+                if hard_button.is_clicked(event.pos):
+                    opponent_speed = 15
+                    menu_screen()
 
 menu_screen()
