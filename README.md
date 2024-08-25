@@ -10,7 +10,7 @@ Want to start playing NotPONG right away? Just follow these simple steps:
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/yourusername/NotPONG.git
+   git clone https://github.com/Harsh-44/NotPONG.git
 
 
 2. **Navigate to the Project Directory**
